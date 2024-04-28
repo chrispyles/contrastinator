@@ -15,6 +15,7 @@ export function encodeColors(cs: Color[]): string {
 }
 
 export function contrast(c1: Color, c2: Color): number {
+  if (c1.hex() === c2.hex()) return 1;
   return Math.round(c1.contrast(c2) * CONTRAST_ROUNDING_FACTOR) / CONTRAST_ROUNDING_FACTOR;
 }
 

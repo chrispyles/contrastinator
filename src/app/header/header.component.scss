@@ -1,9 +1,13 @@
+@use "../../styles/black_p_button";
+
 $header-height: 4rem;
 $_padding: 0.5rem;
 
 :host {
+  background: #0009;
   display: block;
   height: calc(#{$header-height} - 2 * #{$_padding});
+  z-index: 10;
 }
 
 header {
@@ -21,9 +25,7 @@ header {
     position: relative;
 
     > div {
-      background: var(--_h1_background);
-      background-clip: text;
-      color: transparent;
+      color: white;
       left: 3rem;  // img is 2.5rem wide + .5rem gap
       margin-top: 4px; // this vertically centers the text visually with the logo
       position: absolute;
@@ -32,20 +34,11 @@ header {
     > img {
       height: 2.5rem;
     }
-
-    // &::after {
-    //   content: 'Contrastinator';
-    //   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    // }
   }
 
   .buttons {
     display: flex;
     gap: 0.5rem;
-
-    ::ng-deep .p-button {
-      background: #000;
-    }
   }
 }
 
@@ -55,7 +48,7 @@ header {
   gap: 0.5rem;
   max-height: 30rem;
   overflow-y: scroll;
-  width: 15rem;
+  width: 20rem;
 
   .history-item {
     cursor: pointer;

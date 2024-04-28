@@ -24,11 +24,9 @@ import { textColor } from '../lib/colors';
 export class PaletteItemComponent {
   readonly initialColor = input.required<Color>({ alias: 'color' });
 
+  readonly locked = input.required<boolean>();
+
   readonly showActions = input(false);
-
-  private readonly contrastService = inject(ContrastService);
-
-  readonly contrast = this.contrastService.contrast(this.initialColor);
 
   readonly contrastTooltipText = computed(() => `This color's contrast against ${this.contrastService.color()?.hex()} is ${this.contrast()}.`);
 
@@ -40,20 +38,39 @@ export class PaletteItemComponent {
 
   readonly removed = output<undefined>();
 
+  readonly lockChanged = output<boolean>();
+
   readonly textColor = computed(() => textColor(this.currentColor()));
+
+  private readonly contrastService = inject(ContrastService);
+  readonly contrast = this.contrastService.contrast(this.initialColor);
 
   constructor() {
     effect(() => this.changeColor.set(this.initialColor().hex()), { allowSignalWrites: true });
   }
 
+  delete() {
+    this.removed.emit(undefined);
+  }
+
   emitColor() {
     const newColor = this.changeColor();
     if (newColor && this.initialColor().hex().toUpperCase() !== newColor.toUpperCase()) {
-      this.colorChanged.emit(new Color(newColor));
+      const c = new Color(newColor);
+      this.contrastService.markChanged(this.initialColor(), c);
+      this.colorChanged.emit(c);
     }
   }
 
-  delete() {
-    this.removed.emit(undefined);
+  setAsContrastColor() {
+    this.contrastService.setColor(this.currentColor());
+  }
+
+  get lockButtonTooltipText() {
+    return `${this.locked() ? 'Unlock' : 'Lock'} this color`;
+  }
+
+  toggleLock() {
+    this.lockChanged.emit(!this.locked());
   }
 }

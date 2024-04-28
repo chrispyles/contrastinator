@@ -6,8 +6,10 @@
       <ng-container *ngTemplateOutlet="addItemButton; context: {$implicit: i}"></ng-container>
       <app-palette-item
         [color]="c"
+        [locked]="isLocked(i)"
         [showActions]="showActionsIndices.has(i)"
         (colorChanged)="colorChanged($event, i)"
+        (lockChanged)="setLock($event, i)"
         (removed)="remove(i)"
         (mouseover)="showActionsIndices.add(i)" (mouseout)="showActionsIndices.delete(i)"
       ></app-palette-item>
@@ -17,6 +19,12 @@
   <!-- TODO: position this one -->
   <ng-container *ngTemplateOutlet="addItemButton"></ng-container>
 </div>
+
+@if (parserError) {
+  <p-dialog header="Failed to parse color" [modal]="true" [(visible)]="showParserErrorDialog">
+    <p>{{ parserError }}</p>
+  </p-dialog>
+}
 
 <ng-template #addItemButton let-index>
   <div class="add-item-button">

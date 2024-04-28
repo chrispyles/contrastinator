@@ -1,3 +1,4 @@
+@use "../../styles/black_p_button";
 @import "../../vars";
 @import "../header/header.component";
 
@@ -10,7 +11,7 @@ app-header {
   width: 100%;
   position: absolute;
   bottom: 0;
-  height: calc(100vh - $header-height);
+  height: 100vh;
 }
 
 .item-container {
@@ -47,16 +48,12 @@ app-palette-item {
     opacity: 0;
     transition: opacity .25s, visibility 0s;
 
-    // @container #{$palette-item-container-name} (max-width: 200px) {
-    //   margin-left: 0.5rem;
-    // }
-
     ::ng-deep button {
       height: 4rem;
       width: 4rem;
 
       @container #{$palette-item-container-name} (max-width: 200px) {
-        z-index:10;
+        z-index: 10;
       }
     }
 

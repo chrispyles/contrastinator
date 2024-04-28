@@ -1,12 +1,14 @@
+<!-- Remove color button -->
 <div class="metadata" pTooltip="Remove color">
-  <p-button icon="pi" [rounded]="true" [text]="true" (click)="delete()">
+  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="delete()">
     <i class="material-symbols">close</i>
   </p-button>
 </div>
 
+<!-- Color picker button -->
 <div class="metadata" pTooltip="Select a different color">
   <div>
-    <p-button icon="pi" [rounded]="true" [text]="true" (click)="pcp.onInputClick()">
+    <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="pcp.onInputClick()">
       <i class="material-symbols">palette</i>
     </p-button>
 
@@ -14,9 +16,31 @@
   </div>
 </div>
 
-<div class="metadata show-always" [pTooltip]="contrastTooltipText()">
-  <span class="material-symbols">contrast</span>
-  <span>{{ contrast() }}</span>
+<!-- Set contrast color button -->
+<div class="metadata" pTooltip="Set as contrast color">
+  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="setAsContrastColor()">
+    <i class="material-symbols">contrast</i>
+  </p-button>
 </div>
 
+<!-- Toggle lock button -->
+<div class="metadata" [class.show-always]="locked()" [pTooltip]="lockButtonTooltipText">
+  <div>
+    <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="toggleLock()">
+      <i class="material-symbols">{{ locked() ? 'lock' : 'lock_open' }}</i>
+    </p-button>
+
+    <p-colorPicker #pcp [(ngModel)]="changeColor" [baseZIndex]="10" (onHide)="emitColor()"></p-colorPicker>
+  </div>
+</div>
+
+<!-- Contrast against contrast color -->
+@if (contrast(); as contrast) {
+  <div class="metadata show-always" [pTooltip]="contrastTooltipText()">
+    <span class="material-symbols">contrast</span>
+    <span>{{ contrast }}</span>
+  </div>
+}
+
+<!-- Color hex code -->
 <div class="metadata big mono show-always">{{ currentColor().hex() }}</div>

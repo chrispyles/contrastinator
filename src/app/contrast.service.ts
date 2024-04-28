@@ -10,6 +10,11 @@ export class ContrastService {
     return this.colorInternal;
   }
 
+  markChanged(oc: Color, nc: Color) {
+    if (oc.hex() !== this.color()?.hex()) return;
+    this.setColor(nc);
+  }
+
   setColor(c: Color) {
     this.colorInternal.set(c);
   }

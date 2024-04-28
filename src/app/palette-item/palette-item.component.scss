@@ -62,8 +62,15 @@ $line-height: 1.4;
   }
 }
 
-:host ::ng-deep .p-colorpicker-preview {
-  pointer-events: none;
-  position: absolute;
-  visibility: hidden;
+:host ::ng-deep {
+  .p-colorpicker-preview {
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .p-colorpicker-overlay-panel {
+    left: unset !important;
+    right: 52px;
+  }
 }
