@@ -38,7 +38,7 @@ jobs:
 
     - name: Deploy to gh pages
       run: |
-        npx ng deploy --base-href=/contrastinator/ --dir=dist/contrastinator --no-silent
+        npx ng deploy --base-href=/contrastinator/ --dir=dist/contrastinator
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
