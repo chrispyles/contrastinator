@@ -1,0 +1,69 @@
+<header>
+  <h1>
+    <img src="/assets/logo.svg" />
+    <div>Contrastinator</div>
+  </h1>
+  
+  <div class="buttons">
+    <!-- History button -->
+    <p-button
+      icon="pi"
+      [rounded]="true"
+      pTooltip="Show palette history"
+      tooltipPosition="left"
+      (click)="history.toggle($event)"
+    >
+      <i class="material-symbols">history</i>
+    </p-button>
+
+    <!-- Contrast button -->
+    <p-button
+      icon="pi"
+      [rounded]="true"
+      pTooltip="Show contrast chart"
+      tooltipPosition="left"
+      (click)="showContrastChart = true"
+    >
+      <i class="material-symbols">contrast</i>
+    </p-button>
+
+    <!-- Share button -->
+    <p-button
+      icon="pi"
+      [rounded]="true"
+      pTooltip="Copy palette link"
+      tooltipPosition="left"
+      (click)="share()"
+    >
+      <i class="material-symbols">share</i>
+    </p-button>
+
+    <!-- Share button -->
+    <a
+      class="p-button p-button-icon-only p-button-rounded"
+      icon="pi"
+      href="https://github.com/chrispyles/contrastinator"
+      target="_blank"
+    >
+      <github-logo />
+    </a>
+  </div>
+</header>
+
+<p-dialog header="Contrast" [(visible)]="showContrastChart" [modal]="true" [dismissableMask]="true">
+  <app-contrast-chart [colors]="colors()"></app-contrast-chart>
+</p-dialog>
+
+<p-overlayPanel #history (onShow)="showHistory = true" (onHide)="showHistory = false">
+  @if (showHistory) {
+    <div class="history-container">
+      @for (cs of colorHistoryService.history; track cs)  {
+        <div class="history-item" role="button" (click)="goTo(cs)">
+          @for (c of cs; track c) {
+            <div [style.backgroundColor]="c.hex()"></div>
+          }
+        </div>
+      }
+    </div>
+  }
+</p-overlayPanel>

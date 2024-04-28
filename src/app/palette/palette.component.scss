@@ -1,0 +1,72 @@
+@import "../../vars";
+@import "../header/header.component";
+
+app-header {
+  height: $header-height;
+}
+
+.palette {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: calc(100vh - $header-height);
+}
+
+.item-container {
+  container: $palette-item-container-name / size;
+  display: flex;
+  height: 100%;
+  position: relative;
+  width: calc(100% / var(--_num_palette_items));
+}
+
+app-palette-item {
+  height: 100%;
+  width: 100%;
+}
+
+.add-item-button {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  height: 8rem;
+  left: -4rem;
+  position: absolute;
+  width: 8rem;
+
+  @container #{$palette-item-container-name} (max-width: 200px) {
+    height: 5rem;
+    left: -2.5rem;
+    width: 5rem;
+  }
+
+  p-button {
+    visibility: hidden;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity .25s, visibility 0s;
+
+    // @container #{$palette-item-container-name} (max-width: 200px) {
+    //   margin-left: 0.5rem;
+    // }
+
+    ::ng-deep button {
+      height: 4rem;
+      width: 4rem;
+
+      @container #{$palette-item-container-name} (max-width: 200px) {
+        z-index:10;
+      }
+    }
+
+    i {
+      font-size: 2rem;
+    }
+  }
+
+  &:hover p-button {
+    opacity: 1;
+    visibility: visible;
+  }
+}

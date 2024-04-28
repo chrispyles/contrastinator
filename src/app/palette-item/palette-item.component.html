@@ -1,0 +1,22 @@
+<div class="metadata" pTooltip="Remove color">
+  <p-button icon="pi" [rounded]="true" [text]="true" (click)="delete()">
+    <i class="material-symbols">close</i>
+  </p-button>
+</div>
+
+<div class="metadata" pTooltip="Select a different color">
+  <div>
+    <p-button icon="pi" [rounded]="true" [text]="true" (click)="pcp.onInputClick()">
+      <i class="material-symbols">palette</i>
+    </p-button>
+
+    <p-colorPicker #pcp [(ngModel)]="changeColor" [baseZIndex]="10" (onHide)="emitColor()"></p-colorPicker>
+  </div>
+</div>
+
+<div class="metadata show-always" [pTooltip]="contrastTooltipText()">
+  <span class="material-symbols">contrast</span>
+  <span>{{ contrast() }}</span>
+</div>
+
+<div class="metadata big mono show-always">{{ currentColor().hex() }}</div>

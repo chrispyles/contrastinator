@@ -1,0 +1,27 @@
+<app-header [colors]="colors()"></app-header>
+
+<div class="palette">
+  @for (c of colors(); track c; let i = $index) {
+    <div class="item-container" >
+      <ng-container *ngTemplateOutlet="addItemButton; context: {$implicit: i}"></ng-container>
+      <app-palette-item
+        [color]="c"
+        [showActions]="showActionsIndices.has(i)"
+        (colorChanged)="colorChanged($event, i)"
+        (removed)="remove(i)"
+        (mouseover)="showActionsIndices.add(i)" (mouseout)="showActionsIndices.delete(i)"
+      ></app-palette-item>
+    </div>
+  }
+
+  <!-- TODO: position this one -->
+  <ng-container *ngTemplateOutlet="addItemButton"></ng-container>
+</div>
+
+<ng-template #addItemButton let-index>
+  <div class="add-item-button">
+    <p-button icon="pi" [rounded]="true" size="large" (click)="addNewColor(index)">
+      <i class="material-symbols">add</i>
+    </p-button>
+  </div>
+</ng-template>

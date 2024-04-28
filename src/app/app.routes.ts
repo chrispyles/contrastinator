@@ -1,3 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { PaletteComponent } from './palette/palette.component';
+
+export const routes: Routes = [
+  {
+    path: ':encodedColors',
+    component: PaletteComponent,
+  }
+];
