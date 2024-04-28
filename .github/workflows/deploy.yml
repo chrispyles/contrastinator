@@ -39,7 +39,7 @@ jobs:
     - name: Deploy to gh pages
       run: |
         npx ng deploy \
-          --repo=https://${{ secrets.GH_TOKEN }}@github.com/chrispyles/contrastinator.git 
+          --repo=https://${{ secrets.GH_TOKEN }}@github.com/chrispyles/contrastinator.git \
           --base-href="/contrastinator/"
           --silent
       env:
