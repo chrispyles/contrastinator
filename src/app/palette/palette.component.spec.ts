@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MessageService } from 'primeng/api';
 import { PaletteComponent } from './palette.component';
 
 describe('PaletteComponent', () => {
@@ -8,10 +9,11 @@ describe('PaletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaletteComponent]
+      imports: [PaletteComponent],
+      providers: [MessageService],
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PaletteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

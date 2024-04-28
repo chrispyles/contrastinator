@@ -10,10 +10,12 @@ describe('ContrastChartComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ContrastChartComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ContrastChartComponent);
     component = fixture.componentInstance;
+    const componentRef = fixture.componentRef;
+    componentRef.setInput('colors', []);
     fixture.detectChanges();
   });
 
