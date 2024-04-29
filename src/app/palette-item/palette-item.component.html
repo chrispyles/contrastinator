@@ -1,3 +1,11 @@
+@if (contrastService.color(); as contrastColor) {
+  @if (contrastColor.hex() !== currentColor().hex()) {
+    <div class="show-always contrast-text" [style.color]="contrastColor" [pTooltip]="contrastTextTooltipText">
+      The brown fox jumps over the lazy dog.
+    </div>
+  }
+}
+
 <!-- Remove color button -->
 <div class="metadata" pTooltip="Remove color">
   <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="delete()">
@@ -17,8 +25,8 @@
 </div>
 
 <!-- Set contrast color button -->
-<div class="metadata" pTooltip="Set as contrast color">
-  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="setAsContrastColor()">
+<div class="metadata" [pTooltip]="contrastButtonTooltipText">
+  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="toggleAsContrastColor()">
     <i class="material-symbols">contrast</i>
   </p-button>
 </div>

@@ -42,11 +42,19 @@ export class PaletteItemComponent {
 
   readonly textColor = computed(() => textColor(this.currentColor()));
 
-  private readonly contrastService = inject(ContrastService);
+  readonly contrastService = inject(ContrastService);
   readonly contrast = this.contrastService.contrast(this.initialColor);
 
   constructor() {
     effect(() => this.changeColor.set(this.initialColor().hex()), { allowSignalWrites: true });
+  }
+
+  get isContrastColor() {
+    return this.contrastService.color()?.hex() === this.currentColor().hex();
+  }
+
+  get contrastTextTooltipText() {
+    return `This text demonstrates the contrast of ${this.contrastService.color()?.hex()} against this color.`;
   }
 
   delete() {
@@ -62,7 +70,15 @@ export class PaletteItemComponent {
     }
   }
 
-  setAsContrastColor() {
+  get contrastButtonTooltipText() {
+    return this.isContrastColor ? 'Unset contrast color' : 'Set as contrast color';
+  }
+
+  toggleAsContrastColor() {
+    if (this.isContrastColor) {
+      this.contrastService.clear();
+      return;
+    }
     this.contrastService.setColor(this.currentColor());
   }
 

@@ -74,3 +74,11 @@ $line-height: 1.4;
     right: 52px;
   }
 }
+
+.contrast-text {
+  cursor: default;
+  padding: 0.5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); // with top, centers the text vertically within the item
+}
