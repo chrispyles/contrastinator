@@ -10,7 +10,6 @@
   <tbody>
     @for (contrastsRow of contrasts(); track contrastsRow; let i = $index) {
       <tr>
-        <!-- TODO: reverse colors() array below and only show 1/2 of the chart values (triangular chart) -->
         @if (rows()[i]; as rc) {
           <th class="mono" [style.backgroundColor]="rc.hex()" [style.color]="textColor(rc)">{{ rc.hex() }}</th>
           @for (c of contrastsRow; track c) {
