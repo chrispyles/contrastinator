@@ -12,14 +12,10 @@ describe('ContrastChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContrastChartComponent]
+      imports: [ContrastChartComponent],
     }).compileComponents();
 
-    colors = [
-      new Color('#000'),
-      new Color('#223344'),
-      new Color('#FFF'),
-    ];
+    colors = [new Color('#000'), new Color('#223344'), new Color('#FFF')];
 
     fixture = TestBed.createComponent(ContrastChartComponent);
     fixture.componentRef.setInput('colors', colors);
@@ -32,7 +28,7 @@ describe('ContrastChartComponent', () => {
     expect(de.query(By.css('table'))).toBeDefined();
 
     const cells = de.queryAll(By.css('td, th'));
-    expect(cells.map(c => c.nativeElement.innerText)).toEqual([
+    expect(cells.map((c) => c.nativeElement.innerText)).toEqual([
       // row 1
       '',
       '#000000',
@@ -61,10 +57,12 @@ describe('ContrastChartComponent', () => {
 
   it('sets the background color of each th element', () => {
     const ths = de.queryAll(By.css('th'));
-    expect(ths.map(e => {
-      const bgc = e.nativeElement.style.backgroundColor;
-      return bgc && new Color(bgc).hex();
-    })).toEqual([
+    expect(
+      ths.map((e) => {
+        const bgc = e.nativeElement.style.backgroundColor;
+        return bgc && new Color(bgc).hex();
+      }),
+    ).toEqual([
       '',
       '#000000',
       '#223344',

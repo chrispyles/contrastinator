@@ -11,8 +11,7 @@ describe('PaletteComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PaletteComponent],
       providers: [MessageService],
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PaletteComponent);
     component = fixture.componentInstance;

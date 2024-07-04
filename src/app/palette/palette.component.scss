@@ -46,7 +46,9 @@ app-palette-item {
     visibility: hidden;
     margin: 0 auto;
     opacity: 0;
-    transition: opacity .25s, visibility 0s;
+    transition:
+      opacity 0.25s,
+      visibility 0s;
 
     ::ng-deep button {
       height: 4rem;

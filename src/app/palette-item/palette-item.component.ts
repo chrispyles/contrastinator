@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Color from 'color';
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +16,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { ContrastService } from '../contrast.service';
 import { textColor } from '../lib/colors';
+
+export type ColorMove = 'left' | 'right';
 
 @Component({
   selector: 'app-palette-item',
@@ -28,15 +39,24 @@ export class PaletteItemComponent {
 
   readonly showActions = input(false);
 
-  readonly contrastTooltipText = computed(() => `This color's contrast against ${this.contrastService.color()?.hex()} is ${this.contrast()}.`);
+  readonly contrastTooltipText = computed(
+    () =>
+      `This color's contrast against ${this.contrastService
+        .color()
+        ?.hex()} is ${this.contrast()}.`
+  );
 
   readonly changeColor = signal<string | undefined>(undefined);
 
-  readonly currentColor = computed(() => this.changeColor() ? new Color(this.changeColor()) : this.initialColor());
+  readonly currentColor = computed(() =>
+    this.changeColor() ? new Color(this.changeColor()) : this.initialColor()
+  );
 
   readonly colorChanged = output<Color>();
 
   readonly removed = output<undefined>();
+
+  readonly moved = output<ColorMove>();
 
   readonly lockChanged = output<boolean>();
 
@@ -46,7 +66,9 @@ export class PaletteItemComponent {
   readonly contrast = this.contrastService.contrast(this.initialColor);
 
   constructor() {
-    effect(() => this.changeColor.set(this.initialColor().hex()), { allowSignalWrites: true });
+    effect(() => this.changeColor.set(this.initialColor().hex()), {
+      allowSignalWrites: true,
+    });
   }
 
   get isContrastColor() {
@@ -54,7 +76,9 @@ export class PaletteItemComponent {
   }
 
   get contrastTextTooltipText() {
-    return `This text demonstrates the contrast of ${this.contrastService.color()?.hex()} against this color.`;
+    return `This text demonstrates the contrast of ${this.contrastService
+      .color()
+      ?.hex()} against this color.`;
   }
 
   delete() {
@@ -63,7 +87,10 @@ export class PaletteItemComponent {
 
   emitColor() {
     const newColor = this.changeColor();
-    if (newColor && this.initialColor().hex().toUpperCase() !== newColor.toUpperCase()) {
+    if (
+      newColor &&
+      this.initialColor().hex().toUpperCase() !== newColor.toUpperCase()
+    ) {
       const c = new Color(newColor);
       this.contrastService.markChanged(this.initialColor(), c);
       this.colorChanged.emit(c);
@@ -71,7 +98,9 @@ export class PaletteItemComponent {
   }
 
   get contrastButtonTooltipText() {
-    return this.isContrastColor ? 'Unset contrast color' : 'Set as contrast color';
+    return this.isContrastColor
+      ? 'Unset contrast color'
+      : 'Set as contrast color';
   }
 
   toggleAsContrastColor() {
@@ -80,6 +109,10 @@ export class PaletteItemComponent {
       return;
     }
     this.contrastService.setColor(this.currentColor());
+  }
+
+  moveColor(dir: ColorMove) {
+    this.moved.emit(dir);
   }
 
   get lockButtonTooltipText() {

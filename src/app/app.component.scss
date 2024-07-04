@@ -2,7 +2,7 @@
 :host ::ng-deep .p-toast-message {
   backdrop-filter: unset;
   background: #000;
-  color: #FFF;
+  color: #fff;
 
   & .p-toast-message-content {
     display: flex;
@@ -10,6 +10,6 @@
   }
 
   & .p-toast-icon-close {
-    color: #FFF;
+    color: #fff;
   }
 }

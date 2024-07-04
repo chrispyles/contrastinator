@@ -8,10 +8,9 @@ describe('ViewportErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewportErrorComponent]
-    })
-    .compileComponents();
-    
+      imports: [ViewportErrorComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ViewportErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

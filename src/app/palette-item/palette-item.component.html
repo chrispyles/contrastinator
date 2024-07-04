@@ -1,6 +1,10 @@
 @if (contrastService.color(); as contrastColor) {
   @if (contrastColor.hex() !== currentColor().hex()) {
-    <div class="show-always contrast-text" [style.color]="contrastColor" [pTooltip]="contrastTextTooltipText">
+    <div
+      class="show-always contrast-text"
+      [style.color]="contrastColor"
+      [pTooltip]="contrastTextTooltipText"
+    >
       The brown fox jumps over the lazy dog.
     </div>
   }
@@ -8,7 +12,13 @@
 
 <!-- Remove color button -->
 <div class="metadata" pTooltip="Remove color">
-  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="delete()">
+  <p-button
+    class="no-back-p-button"
+    icon="pi"
+    [rounded]="true"
+    [text]="true"
+    (click)="delete()"
+  >
     <i class="material-symbols">close</i>
   </p-button>
 </div>
@@ -16,29 +26,87 @@
 <!-- Color picker button -->
 <div class="metadata" pTooltip="Select a different color">
   <div>
-    <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="pcp.onInputClick()">
+    <p-button
+      class="no-back-p-button"
+      icon="pi"
+      [rounded]="true"
+      [text]="true"
+      (click)="pcp.onInputClick()"
+    >
       <i class="material-symbols">palette</i>
     </p-button>
 
-    <p-colorPicker #pcp [(ngModel)]="changeColor" [baseZIndex]="10" (onHide)="emitColor()"></p-colorPicker>
+    <p-colorPicker
+      #pcp
+      [(ngModel)]="changeColor"
+      [baseZIndex]="10"
+      (onHide)="emitColor()"
+    ></p-colorPicker>
   </div>
 </div>
 
 <!-- Set contrast color button -->
 <div class="metadata" [pTooltip]="contrastButtonTooltipText">
-  <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="toggleAsContrastColor()">
+  <p-button
+    class="no-back-p-button"
+    icon="pi"
+    [rounded]="true"
+    [text]="true"
+    (click)="toggleAsContrastColor()"
+  >
     <i class="material-symbols">contrast</i>
   </p-button>
 </div>
 
+<!-- Move buttons -->
+<div class="metadata">
+  <!-- TODO: button tooltips? -->
+  <p-button
+    class="no-back-p-button"
+    icon="pi"
+    [rounded]="true"
+    [text]="true"
+    pTooltip="Move left"
+    (click)="moveColor('left')"
+  >
+    <i class="material-symbols">arrow_back</i>
+  </p-button>
+
+  <p-button
+    class="no-back-p-button"
+    icon="pi"
+    [rounded]="true"
+    [text]="true"
+    pTooltip="Move right"
+    (click)="moveColor('right')"
+  >
+    <i class="material-symbols">arrow_forward</i>
+  </p-button>
+</div>
+
 <!-- Toggle lock button -->
-<div class="metadata" [class.show-always]="locked()" [pTooltip]="lockButtonTooltipText">
+<div
+  class="metadata"
+  [class.show-always]="locked()"
+  [pTooltip]="lockButtonTooltipText"
+>
   <div>
-    <p-button class="no-back-p-button" icon="pi" [rounded]="true" [text]="true" (click)="toggleLock()">
-      <i class="material-symbols">{{ locked() ? 'lock' : 'lock_open' }}</i>
+    <p-button
+      class="no-back-p-button"
+      icon="pi"
+      [rounded]="true"
+      [text]="true"
+      (click)="toggleLock()"
+    >
+      <i class="material-symbols">{{ locked() ? "lock" : "lock_open_right" }}</i>
     </p-button>
 
-    <p-colorPicker #pcp [(ngModel)]="changeColor" [baseZIndex]="10" (onHide)="emitColor()"></p-colorPicker>
+    <p-colorPicker
+      #pcp
+      [(ngModel)]="changeColor"
+      [baseZIndex]="10"
+      (onHide)="emitColor()"
+    ></p-colorPicker>
   </div>
 </div>
 

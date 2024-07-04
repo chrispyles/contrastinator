@@ -19,14 +19,14 @@ header {
     align-items: center;
     cursor: default;
     display: flex;
-    font-family: Sixtyfour, 'Courier New', Courier, monospace;
+    font-family: Sixtyfour, "Courier New", Courier, monospace;
     font-size: 2.5rem;
     line-height: 1;
     position: relative;
 
     > div {
       color: white;
-      left: 3rem;  // img is 2.5rem wide + .5rem gap
+      left: 3rem; // img is 2.5rem wide + .5rem gap
       margin-top: 4px; // this vertically centers the text visually with the logo
       position: absolute;
     }

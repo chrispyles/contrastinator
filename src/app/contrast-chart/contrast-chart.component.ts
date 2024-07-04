@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import Color from 'color';
 
 import { contrast, textColor } from '../lib/colors';

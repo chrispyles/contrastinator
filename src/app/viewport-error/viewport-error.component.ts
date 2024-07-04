@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './viewport-error.component.html',
-  styleUrl: './viewport-error.component.scss'
+  styleUrl: './viewport-error.component.scss',
 })
-export class ViewportErrorComponent {
-
-}
+export class ViewportErrorComponent {}

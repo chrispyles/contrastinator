@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import Color from 'color';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +19,10 @@ import { ContrastChartComponent } from '../contrast-chart/contrast-chart.compone
 import { ContrastService } from '../contrast.service';
 import { HeaderComponent } from '../header/header.component';
 import { decodeColors, encodeColors } from '../lib/colors';
-import { PaletteItemComponent } from '../palette-item/palette-item.component';
+import {
+  ColorMove,
+  PaletteItemComponent,
+} from '../palette-item/palette-item.component';
 
 @Component({
   selector: 'app-palette',
@@ -35,7 +47,9 @@ export class PaletteComponent implements OnInit {
 
   readonly updateColors = signal<Color[] | undefined>(undefined);
 
-  readonly addColorIndex = signal<number | undefined>(undefined, { equal: () => false });
+  readonly addColorIndex = signal<number | undefined>(undefined, {
+    equal: () => false,
+  });
 
   readonly colors = computed(() => {
     const enc = this.encodedColors();
@@ -120,6 +134,16 @@ export class PaletteComponent implements OnInit {
     this.colorLocks.splice(i, 1);
   }
 
+  move(i: number, dir: ColorMove) {
+    const colors = this.colors().slice();
+    if (dir === 'right') i += 1;
+    const [c] = colors.splice(i, 1);
+    colors.splice(i - 1, 0, c);
+    this.updateColors.set(colors);
+    const [l] = this.colorLocks.splice(i, 1);
+    this.colorLocks.splice(i - 1, 0, l);
+  }
+
   randomizeColors() {
     const cs = this.colors().slice();
     for (let i = 0; i < cs.length; i++) {
@@ -133,7 +157,11 @@ export class PaletteComponent implements OnInit {
 }
 
 function randomColor(): Color {
-  return new Color({ r: Math.random() * 256, g: Math.random() * 256, b: Math.random() * 256 });
+  return new Color({
+    r: Math.random() * 256,
+    g: Math.random() * 256,
+    b: Math.random() * 256,
+  });
 }
 
 function randomColorSet(): Color[] {

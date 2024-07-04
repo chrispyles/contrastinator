@@ -12,5 +12,5 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([BrowserAnimationsModule]),
     MessageService,
     { provide: APP_BASE_HREF, useValue: '/contrastinator' },
-  ]
+  ],
 };

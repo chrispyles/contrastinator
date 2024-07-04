@@ -3,7 +3,7 @@
     <img src="assets/logo.svg" />
     <div>Contrastinator</div>
   </h1>
-  
+
   <div class="buttons">
     <!-- History button -->
     <p-button
@@ -50,14 +50,23 @@
   </div>
 </header>
 
-<p-dialog header="Contrast" [(visible)]="showContrastChart" [modal]="true" [dismissableMask]="true">
+<p-dialog
+  header="Contrast"
+  [(visible)]="showContrastChart"
+  [modal]="true"
+  [dismissableMask]="true"
+>
   <app-contrast-chart [colors]="colors()"></app-contrast-chart>
 </p-dialog>
 
-<p-overlayPanel #history (onShow)="showHistory = true" (onHide)="showHistory = false">
+<p-overlayPanel
+  #history
+  (onShow)="showHistory = true"
+  (onHide)="showHistory = false"
+>
   @if (showHistory) {
     <div class="history-container">
-      @for (cs of colorHistoryService.history; track cs)  {
+      @for (cs of colorHistoryService.history; track cs) {
         <div class="history-item" role="button" (click)="goTo(cs)">
           @for (c of cs; track c) {
             <div [style.backgroundColor]="c.hex()"></div>

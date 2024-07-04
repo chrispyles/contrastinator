@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, inject, input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  input,
+} from '@angular/core';
 import Color from 'color';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -15,12 +21,19 @@ import { GitHubLogoComponent } from '../svgs/github-logo.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [ButtonModule, ContrastChartComponent, DialogModule, GitHubLogoComponent, OverlayPanelModule, TooltipModule],
+  imports: [
+    ButtonModule,
+    ContrastChartComponent,
+    DialogModule,
+    GitHubLogoComponent,
+    OverlayPanelModule,
+    TooltipModule,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   host: {
     // '[style.--_h1_background]': 'background()',
-  }
+  },
 })
 export class HeaderComponent implements AfterViewInit {
   readonly colors = input.required<Color[]>();

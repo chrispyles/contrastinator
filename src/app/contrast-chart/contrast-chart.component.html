@@ -3,7 +3,13 @@
     <tr>
       <th></th>
       @for (c of columns(); track c) {
-        <th class="mono" [style.backgroundColor]="c.hex()" [style.color]="textColor(c)">{{ c.hex() }}</th>
+        <th
+          class="mono"
+          [style.backgroundColor]="c.hex()"
+          [style.color]="textColor(c)"
+        >
+          {{ c.hex() }}
+        </th>
       }
     </tr>
   </thead>
@@ -11,7 +17,13 @@
     @for (contrastsRow of contrasts(); track contrastsRow; let i = $index) {
       <tr>
         @if (rows()[i]; as rc) {
-          <th class="mono" [style.backgroundColor]="rc.hex()" [style.color]="textColor(rc)">{{ rc.hex() }}</th>
+          <th
+            class="mono"
+            [style.backgroundColor]="rc.hex()"
+            [style.color]="textColor(rc)"
+          >
+            {{ rc.hex() }}
+          </th>
           @for (c of contrastsRow; track c) {
             <td>{{ c }}</td>
           }

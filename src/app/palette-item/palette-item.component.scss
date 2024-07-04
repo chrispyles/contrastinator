@@ -80,5 +80,7 @@ $line-height: 1.4;
   padding: 0.5rem;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%); // with top, centers the text vertically within the item
+  transform: translateY(
+    -50%
+  ); // with top, centers the text vertically within the item
 }

@@ -24,6 +24,10 @@ export class ContrastService {
   }
 
   contrast(c: Signal<Color>): Signal<number | undefined> {
-    return computed(() => this.colorInternal() === undefined ? undefined : contrast(this.colorInternal()!, c()));
+    return computed(() =>
+      this.colorInternal() === undefined
+        ? undefined
+        : contrast(this.colorInternal()!, c()),
+    );
   }
 }
