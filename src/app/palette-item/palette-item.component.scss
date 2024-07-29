@@ -45,6 +45,10 @@ $line-height: 1.4;
     font-size: min(3rem, 2vw);
   }
 
+  &.hex {
+    cursor: text;
+  }
+
   span {
     line-height: $line-height;
   }
@@ -83,4 +87,12 @@ $line-height: 1.4;
   transform: translateY(
     -50%
   ); // with top, centers the text vertically within the item
+}
+
+input {
+  cursor: text;
+
+  &:invalid {
+    border: 1px solid red;
+  }
 }

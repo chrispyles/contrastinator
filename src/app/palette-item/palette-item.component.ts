@@ -3,10 +3,13 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   inject,
   input,
+  OnInit,
   output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Color from 'color';
@@ -32,7 +35,7 @@ export type ColorMove = 'left' | 'right';
     '[style.--_text_color]': 'textColor()',
   },
 })
-export class PaletteItemComponent {
+export class PaletteItemComponent implements OnInit {
   readonly initialColor = input.required<Color>({ alias: 'color' });
 
   readonly locked = input.required<boolean>();
@@ -65,10 +68,26 @@ export class PaletteItemComponent {
   readonly contrastService = inject(ContrastService);
   readonly contrast = this.contrastService.contrast(this.initialColor);
 
+  readonly hexInput = signal(false);
+
+  @ViewChild('hexInput') readonly hexInputEl?: ElementRef<HTMLInputElement>;
+
   constructor() {
-    effect(() => this.changeColor.set(this.initialColor().hex()), {
-      allowSignalWrites: true,
+    // When the hex input is opened, add an event listener to the body that closes it when the user
+    // clicks outside the input element.
+    effect(() => {
+      if (!this.hexInput()) return;
+      const closeInput = (evt: MouseEvent) => {
+        if (evt.target === this.hexInputEl?.nativeElement) return;
+        this.hexInput.set(false);
+        document.body.removeEventListener('click', closeInput);
+      };
+      setTimeout(() => document.body.addEventListener('click', closeInput), 0);
     });
+  }
+
+  ngOnInit(): void {
+    this.changeColor.set(this.initialColor().hex());
   }
 
   get isContrastColor() {
@@ -121,5 +140,11 @@ export class PaletteItemComponent {
 
   toggleLock() {
     this.lockChanged.emit(!this.locked());
+  }
+
+  onHexInputKeydown(evt: KeyboardEvent) {
+    if (evt.key !== 'Enter') return;
+    this.hexInput.set(false);
+    this.colorChanged.emit(new Color(this.hexInputEl!.nativeElement.value));
   }
 }

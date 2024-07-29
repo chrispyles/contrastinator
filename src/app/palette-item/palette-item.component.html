@@ -119,4 +119,18 @@
 }
 
 <!-- Color hex code -->
-<div class="metadata big mono show-always">{{ currentColor().hex() }}</div>
+@if (hexInput()) {
+  <input
+    #hexInput
+    class="metadata big mono show-always hex"
+    type="text"
+    [value]="currentColor().hex()"
+    pattern="#?[A-F0-9]{3}([A-F0-9]{3})?"
+    (keydown)="onHexInputKeydown($event)"
+  />
+} @else {
+  <div
+    class="metadata big mono show-always hex"
+    (click)="hexInput.set(true)"
+  >{{ currentColor().hex() }}</div>
+}
