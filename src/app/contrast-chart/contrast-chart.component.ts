@@ -8,6 +8,9 @@ import Color from 'color';
 
 import { contrast, textColor } from '../lib/colors';
 
+/**
+ * A component that renders a table displaying the color contrast for each pair in a set of colors.
+ */
 @Component({
   selector: 'app-contrast-chart',
   standalone: true,
@@ -20,12 +23,18 @@ export class ContrastChartComponent {
   readonly Math = Math;
   readonly textColor = textColor;
 
+  /** The colors to show in the chart. */
   readonly colors = input.required<Color[]>();
 
+  /** The colors for each row. (This is just the list of colors in reverse order.) */
   readonly rows = computed(() => [...this.colors()].reverse());
 
+  /** The colors for each column. */
   readonly columns = computed(() => this.colors());
 
+  /**
+   * A 2D array of color contrast values, organized according to {@link rows} and {@link columns}.
+   */
   readonly contrasts = computed(() => {
     const rows = this.rows();
     const cols = this.columns();

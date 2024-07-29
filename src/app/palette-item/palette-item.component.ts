@@ -22,6 +22,7 @@ import { textColor } from '../lib/colors';
 
 export type ColorMove = 'left' | 'right';
 
+/** A component that renders a single color in a color palette. */
 @Component({
   selector: 'app-palette-item',
   standalone: true,
@@ -36,12 +37,16 @@ export type ColorMove = 'left' | 'right';
   },
 })
 export class PaletteItemComponent implements OnInit {
+  /** The initial color of this palette item. */
   readonly initialColor = input.required<Color>({ alias: 'color' });
 
+  /** Whether this color is locked. */
   readonly locked = input.required<boolean>();
 
+  /** Whether to show the action buttons on this palette item. */
   readonly showActions = input(false);
 
+  /** Text for the tooltip on the color contrast button. */
   readonly contrastTooltipText = computed(
     () =>
       `This color's contrast against ${this.contrastService
@@ -49,27 +54,38 @@ export class PaletteItemComponent implements OnInit {
         ?.hex()} is ${this.contrast()}.`
   );
 
+  /** A signal that updates this palette item's color when written to. */
   readonly changeColor = signal<string | undefined>(undefined);
 
+  /** The current color of this palette item. */
   readonly currentColor = computed(() =>
     this.changeColor() ? new Color(this.changeColor()) : this.initialColor()
   );
 
+  /** Emits the new color of this palette item when it changes. */
   readonly colorChanged = output<Color>();
 
+  /** Emits when the user removes this palette item. */
   readonly removed = output<undefined>();
 
+  /** Emits a direction when the user moves this palette item. */
   readonly moved = output<ColorMove>();
 
+  /** Emits whether this color is locked when the user toggles the lock. */
   readonly lockChanged = output<boolean>();
 
+  /** The color to use for text against a background of the current color. */
   readonly textColor = computed(() => textColor(this.currentColor()));
 
   readonly contrastService = inject(ContrastService);
+
+  /** The contrast of this palette item's color against the current contrast color, if any. */
   readonly contrast = this.contrastService.contrast(this.initialColor);
 
+  /** Whether the hex code input element is showing. */
   readonly hexInput = signal(false);
 
+  /** The hex code input element. */
   @ViewChild('hexInput') readonly hexInputEl?: ElementRef<HTMLInputElement>;
 
   constructor() {
@@ -90,20 +106,24 @@ export class PaletteItemComponent implements OnInit {
     this.changeColor.set(this.initialColor().hex());
   }
 
+  /** Whether the current color is the contrast color. */
   get isContrastColor() {
     return this.contrastService.color()?.hex() === this.currentColor().hex();
   }
 
+  /** Text for the color contrast tooltip. */
   get contrastTextTooltipText() {
     return `This text demonstrates the contrast of ${this.contrastService
       .color()
       ?.hex()} against this color.`;
   }
 
+  /** Delete this palette item. */
   delete() {
     this.removed.emit(undefined);
   }
 
+  /** Emit the new color of this palette item. */
   emitColor() {
     const newColor = this.changeColor();
     if (
@@ -116,12 +136,14 @@ export class PaletteItemComponent implements OnInit {
     }
   }
 
+  /** Text for the color contrast button tooltip. */
   get contrastButtonTooltipText() {
     return this.isContrastColor
       ? 'Unset contrast color'
       : 'Set as contrast color';
   }
 
+  /** Toggle whether the current color is the contrast color. */
   toggleAsContrastColor() {
     if (this.isContrastColor) {
       this.contrastService.clear();
@@ -130,18 +152,24 @@ export class PaletteItemComponent implements OnInit {
     this.contrastService.setColor(this.currentColor());
   }
 
+  /** Move this palette item in the specified direction. */
   moveColor(dir: ColorMove) {
     this.moved.emit(dir);
   }
 
+  /** Text for the lock button tooltip. */
   get lockButtonTooltipText() {
     return `${this.locked() ? 'Unlock' : 'Lock'} this color`;
   }
 
+  /** Toggle whether this palette item is locked. */
   toggleLock() {
     this.lockChanged.emit(!this.locked());
   }
 
+  /**
+   * An event listener for {@link hexInputEl} that emits the new color when the user presses Enter.
+   */
   onHexInputKeydown(evt: KeyboardEvent) {
     if (evt.key !== 'Enter') return;
     this.hexInput.set(false);

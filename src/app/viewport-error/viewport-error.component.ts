@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * A component that displays an error to the user if their viewport is too small to use this app.
+ */
 @Component({
   selector: 'app-viewport-error',
   standalone: true,

@@ -18,6 +18,7 @@ import { ContrastChartComponent } from '../contrast-chart/contrast-chart.compone
 import { encodeColors } from '../lib/colors';
 import { GitHubLogoComponent } from '../svgs/github-logo.component';
 
+/** The application header. */
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -38,8 +39,10 @@ import { GitHubLogoComponent } from '../svgs/github-logo.component';
 export class HeaderComponent implements AfterViewInit {
   readonly colors = input.required<Color[]>();
 
+  /** Whether the color contrast chart dialog is currently open. */
   showContrastChart = false;
 
+  /** Whether the history dropdown is currently open. */
   showHistory = false;
 
   // readonly background = computed(() => {
@@ -59,11 +62,13 @@ export class HeaderComponent implements AfterViewInit {
     this.el.nativeElement.style.position = 'relative';
   }
 
+  /** Copy the URL of the current palette to the user's clipboard. */
   async share() {
     await navigator.clipboard.writeText(location.toString());
     this.pMessageService.add({ summary: 'Link copied to clipboard' });
   }
 
+  /** Update the router so that the app shows the specified colors. */
   goTo(colors: Color[]) {
     this.router.navigate([`/${encodeColors(colors)}`]);
   }
