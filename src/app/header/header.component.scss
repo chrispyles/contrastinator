@@ -1,10 +1,12 @@
-@use "../../styles/black_p_button";
+@import "../../styles/black_p_button";
 
 $header-height: 4rem;
 $_padding: 0.5rem;
 
 :host {
-  background: #0009;
+  @include black-p-button(#000000d0);
+
+  background: #fff;
   display: block;
   height: calc(#{$header-height} - 2 * #{$_padding});
   z-index: 10;
@@ -19,13 +21,13 @@ header {
     align-items: center;
     cursor: default;
     display: flex;
-    font-family: Sixtyfour, "Courier New", Courier, monospace;
+    font-family: Satisfy, "Courier New", Courier, monospace;
     font-size: 2.5rem;
     line-height: 1;
     position: relative;
 
     > div {
-      color: white;
+      color: #000;
       left: 3rem; // img is 2.5rem wide + .5rem gap
       margin-top: 4px; // this vertically centers the text visually with the logo
       position: absolute;

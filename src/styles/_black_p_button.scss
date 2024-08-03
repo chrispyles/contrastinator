@@ -1,8 +1,10 @@
-:host p-button > ::ng-deep .p-button:not(.no-back-p-button > .p-button),
-:host a.p-button:not(.no-back-p-button > .p-button) {
-  background: #00000060;
+@mixin black-p-button($color: #00000060) {
+  p-button > ::ng-deep .p-button:not(.no-back-p-button > .p-button),
+  a.p-button:not(.no-back-p-button > .p-button) {
+    background: $color;
 
-  &:focus {
-    box-shadow: 0 0 0 2px #fff, 0 1px 2px 0 black;
+    &:focus {
+      box-shadow: 0 0 0 2px #fff, 0 1px 2px 0 black;
+    }
   }
 }

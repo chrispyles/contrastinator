@@ -1,6 +1,10 @@
-@use "../../styles/black_p_button";
+@import "../../styles/black_p_button";
 @import "../../vars";
 @import "../header/header.component";
+
+:host {
+  @include black-p-button();
+}
 
 app-header {
   height: $header-height;
@@ -46,9 +50,7 @@ app-palette-item {
     visibility: hidden;
     margin: 0 auto;
     opacity: 0;
-    transition:
-      opacity 0.25s,
-      visibility 0s;
+    transition: opacity 0.25s, visibility 0s;
 
     ::ng-deep button {
       height: 4rem;
